@@ -1,17 +1,28 @@
-import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
-import { useAuthStore } from "../store/auth.store";
-
+import {
+  createFileRoute,
+  Outlet,
+  redirect,
+} from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_auth")({
   beforeLoad: () => {
-    const token = useAuthStore((s) => s.token);
+    const token = localStorage.getItem("token");
     if (!token) {
-      return <Navigate to="/login" />;
+      throw redirect({
+        to: "/login",
+      });
     }
   },
   component: AuthLayout,
 });
 
 function AuthLayout() {
-  return <Outlet />;
+  return (
+    <>
+      <header>Header Privado</header>
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
 }

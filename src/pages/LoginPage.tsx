@@ -1,13 +1,9 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
 import { Button, Input } from "../components/ui";
 
-export const Route = createFileRoute("/login")({
-  component: LoginPage,
-});
-
-function LoginPage() {
+export function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -17,7 +13,7 @@ function LoginPage() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await login.mutateAsync({ email, password });
-    navigate({ to: "/" });
+    navigate({ to: "/dashboard" });
   };
   return (
     <div className="flex min-h-screen items-center justify-center">
