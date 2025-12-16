@@ -1,14 +1,23 @@
 import { useMutation } from "@tanstack/react-query";
 import { loginRequest } from "../api/auth.api";
-import { useAuth } from "../auth/auth.store";
+import { useAuthStore } from "../store/auth.store";
+import { useUIStore } from "../store/ui.store";
 
 export const useLogin = () => {
-  const auth = useAuth();
+  const login = useAuthStore((s) => s.login);
+  const showLoader = useUIStore((s) => s.showLoader);
+  const hideLoader = useUIStore((s) => s.hideLoader);
 
   return useMutation({
     mutationFn: loginRequest,
+    onMutate: () => {
+      showLoader();
+    },
     onSuccess: (data) => {
-      auth.login(data.token, data.user);
+      login(data.token, data.user);
+    },
+    onSettled: () => {
+      hideLoader();
     },
   });
 };

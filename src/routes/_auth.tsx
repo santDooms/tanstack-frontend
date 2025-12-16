@@ -1,9 +1,10 @@
 import { createFileRoute, Navigate, Outlet } from "@tanstack/react-router";
-import { useAuth } from "../auth/auth.store";
+import { useAuthStore } from "../store/auth.store";
+
 
 export const Route = createFileRoute("/_auth")({
   beforeLoad: () => {
-    const token = useAuth().token;
+    const token = useAuthStore((s) => s.token);
     if (!token) {
       return <Navigate to="/login" />;
     }
