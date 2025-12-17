@@ -8,17 +8,12 @@ export const Route = createRootRoute({
 });
 
 function RootLayout() {
-  const isLoading = useUIStore((s) => s.isLoading);
+ const isLoading = useUIStore((s) => s.isLoading)
+
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-white">
       {isLoading && <Loader />}
-        <main className="flex-1">
-          <div className="max-w-[1400px] mx-auto px-20 py-10">
-            <div className="bg-white rounded-xl shadow-sm p-8">
-              <Outlet />
-            </div>
-          </div>
-        </main>
-    </>
+      <Outlet />
+    </div>
   );
 }
