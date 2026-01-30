@@ -1,10 +1,10 @@
-import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
+import { Outlet, createRootRoute } from "@tanstack/react-router";
 import { Loader } from "../components/ui";
 import { useUIStore } from "../store";
 
 export const Route = createRootRoute({
   component: RootLayout,
-//  defaultLoadingComponent: () => <Loader />,
+  pendingComponent: () => <Loader />,
 });
 
 function RootLayout() {

@@ -1,6 +1,4 @@
-import type { DashboardTab } from "../../pages/Dashboard";
-
-
+import type { DashboardTab } from "../../../pages/Dashboard";
 
 type Props = {
   tab: DashboardTab;

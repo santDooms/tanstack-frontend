@@ -11,5 +11,5 @@ export interface Quotation {
   marca?: string;             
   modelo?: string;           
   valorPrima?: number;        
-  [k: string]: unknown;
+  // [k: string]: unknown;
 }

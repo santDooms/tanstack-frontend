@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { CotizacionesTable } from "../components/layouts/CotizacionesTable";
-import { Button, Table } from "../components/ui";
-import { DashboardTabs } from "../components/layouts/DashboardTabs";
+import { QuotationsTable } from "../components/layouts/DashboardComponents/QuotationsTable";
+import { Table } from "../components/ui";
+import { DashboardTabs } from "../components/layouts/DashboardComponents/DashboardTabs";
+import { DashboardHeader } from "../components/layouts/DashboardComponents/DashboardHeader";
+import { useNavigate, type NavigateOptions } from "@tanstack/react-router";
 
 export type DashboardTab = "cotizacion" | "proceso" | "emitidas";
 
 function QuoteTable() {
-  return <CotizacionesTable />;
+  return <QuotationsTable />;
 }
 
 function EmissionTable() {
@@ -24,23 +26,20 @@ const tableToRender: Record<DashboardTab, React.ComponentType> = {
 };
 
 export function Dashboard() {
+  const navigate = useNavigate();
   const [tab, setTab] = useState<DashboardTab>("cotizacion");
   const TableComponent = tableToRender[tab];
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold">Cotizaciones</h2>
-          <p className="text-sm text-slate-500">
-            Gestión de cotizaciones del sistema
-          </p>
-        </div>
-
-        <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
-          Nueva cotización
-        </Button>
-      </div>
-
+      <DashboardHeader
+        title="Mis negocios en línea"
+        actionLabel="Nueva cotización"
+        onAction={async () =>  await navigate({ to: "/newQuotation" } as NavigateOptions)}
+        breadcrumb={[
+          { label: "Póliza Express" },
+          { label: "Mis negocios en línea" },
+        ]}
+      />
       <DashboardTabs tab={tab} onChange={setTab} />
       <TableComponent />
     </div>
