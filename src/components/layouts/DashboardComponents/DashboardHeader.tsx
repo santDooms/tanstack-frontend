@@ -18,10 +18,10 @@ export function DashboardHeader({
   breadcrumb,
 }: DashboardHeaderProps) {
   return (
-    <div className="space-y-4 border-b border-slate-200 pb-4">
+    <div className="space-y-4 border-b border-slate-200 pb-8 relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] px-20">
       {breadcrumb && <Breadcrumb items={breadcrumb} />}
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between ">
         <div>
           <h2 className="text-2xl font-semibold text-slate-900">{title}</h2>
           {description && (

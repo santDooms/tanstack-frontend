@@ -44,7 +44,7 @@ export function LoginPage() {
         >
           Login
         </Button>
-  
+
         {login.isError && (
           <p className="text-red-500 text-sm">Invalid credentials</p>
         )}

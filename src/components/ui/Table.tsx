@@ -11,7 +11,7 @@ export function Table({
 }: QuotationTableProps) {
   console.log("Table data:", data);
   return (
-    <div className="overflow-hidden rounded-xl border border-slate-200">
+    <div className="overflow-x-auto rounded-xl border border-slate-200">
       <table className="w-full text-sm">
         <thead className="bg-slate-100 text-slate-600">
           <tr>
@@ -30,89 +30,47 @@ export function Table({
         <tbody>
           {data.map((item, index) => (
             <tr
-              key={item.id ?? index}
+              key={item.policyId}
               className={
-                index % 2 === 0
-                  ? "bg-white border-t"
-                  : "bg-slate-50 border-t"
+                index % 2 === 0 ? "bg-white border-t" : "bg-slate-50 border-t"
               }
             >
-              {/* Fecha y hora */}
               <td className="px-4 py-3">
                 <div>{item.createdAt ?? "-"}</div>
                 <div className="text-xs text-slate-500">
                   {item.createdAt ?? ""}
                 </div>
               </td>
-
-              {/* Cotización */}
               <td className="px-4 py-3 font-medium text-blue-600">
                 {item.policyId ?? "-"}
               </td>
-
-              {/* Conductor */}
+              <td className="px-4 py-3">{item.nombre ?? "-"}</td>
               <td className="px-4 py-3">
-                {item.nombre ?? "-"}
+                <div>{item.cedula ?? "-"}</div>
               </td>
 
-              {/* Identificación */}
               <td className="px-4 py-3">
-                <div>{item.documentNumber ?? "-"}</div>
-                <div className="text-xs text-slate-500">
-                  {item.documentType ?? ""}
-                </div>
+                <div>{item.placa ?? "-"}</div>
               </td>
-
-              {/* Placa */}
               <td className="px-4 py-3">
-                <div>{item.plate ?? "-"}</div>
-                <div className="text-xs text-slate-500">
-                  {item.country ?? ""}
-                </div>
+                <div>{item.marca}</div>
+                <div className="text-xs text-slate-500">{item.modelo}</div>
               </td>
-
-              {/* Vehículo */}
               <td className="px-4 py-3">
-                {item.vehicleBrand ? (
-                  <>
-                    <div>{item.vehicleBrand}</div>
-                    <div className="text-xs text-slate-500">
-                      {item.vehicleModel}
-                    </div>
-                  </>
-                ) : (
-                  "-"
-                )}
-              </td>
-
-              {/* Validez */}
-              <td className="px-4 py-3">
-                {item.validityDays ? (
+                {item.vigenciaHasta ? (
                   <span className="inline-flex items-center rounded-md bg-green-600 px-2 py-0.5 text-xs font-medium text-white">
-                    {item.validityDays} días
+                    {item.vigenciaHasta} días
                   </span>
                 ) : (
                   "-"
                 )}
               </td>
-
-              {/* Prima */}
               <td className="px-4 py-3">
-                {item.premiumAmount ? (
-                  <>
-                    <div>
-                      ${item.premiumAmount.toLocaleString("es-CO")}
-                    </div>
+                    <div>${item.valorPrima}</div>
                     <div className="text-xs text-slate-500">
                       {item.planName}
                     </div>
-                  </>
-                ) : (
-                  "-"
-                )}
               </td>
-
-              {/* Acciones */}
               <td className="px-4 py-3">
                 <button
                   onClick={() => onResume?.(item)}

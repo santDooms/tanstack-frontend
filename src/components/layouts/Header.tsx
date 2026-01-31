@@ -24,7 +24,6 @@ export function Header() {
             src={HeaderLogo}
             alt="HDI Seguros"
             className="h-16 w-auto"
-            
           />
         </div>
 

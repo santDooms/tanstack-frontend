@@ -29,12 +29,16 @@ export function Dashboard() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<DashboardTab>("cotizacion");
   const TableComponent = tableToRender[tab];
+
+  const handleNavigate = async () => {
+    await navigate({ to: "/newQuotation" } as NavigateOptions);
+  };
   return (
     <div className="space-y-6">
       <DashboardHeader
         title="Mis negocios en línea"
         actionLabel="Nueva cotización"
-        onAction={async () =>  await navigate({ to: "/newQuotation" } as NavigateOptions)}
+        onAction={handleNavigate}
         breadcrumb={[
           { label: "Póliza Express" },
           { label: "Mis negocios en línea" },
