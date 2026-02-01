@@ -16,6 +16,7 @@ export const Route = createFileRoute("/_auth")({
     }
   },
   component: AuthLayout,
+  staticData: { breadcrumb: "Póliza Express" },
 });
 
 function AuthLayout() {

@@ -39,10 +39,6 @@ export function Dashboard() {
         title="Mis negocios en línea"
         actionLabel="Nueva cotización"
         onAction={handleNavigate}
-        breadcrumb={[
-          { label: "Póliza Express" },
-          { label: "Mis negocios en línea" },
-        ]}
       />
       <DashboardTabs tab={tab} onChange={setTab} />
       <TableComponent />
