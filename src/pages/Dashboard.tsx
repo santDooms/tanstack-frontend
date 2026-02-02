@@ -4,19 +4,22 @@ import { Table } from "../components/ui";
 import { DashboardTabs } from "../components/layouts/DashboardComponents/DashboardTabs";
 import { DashboardHeader } from "../components/layouts/DashboardComponents/DashboardHeader";
 import { useNavigate, type NavigateOptions } from "@tanstack/react-router";
+import type { Quotation } from "../types/quotation";
 
 export type DashboardTab = "cotizacion" | "proceso" | "emitidas";
+
+const otherTablesData: Quotation[] = [];
 
 function QuoteTable() {
   return <QuotationsTable />;
 }
 
 function EmissionTable() {
-  return <Table data={[]} />;
+  return <Table data={otherTablesData} />;
 }
 
 function EmitedTable() {
-  return <Table data={[]} />;
+  return <Table data={otherTablesData} />;
 }
 
 const tableToRender: Record<DashboardTab, React.ComponentType> = {

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { Quotation } from "../../types/quotation";
 
 interface QuotationTableProps {
@@ -5,10 +6,7 @@ interface QuotationTableProps {
   onResume?: (item: Quotation) => void;
 }
 
-export function Table({
-  data,
-  onResume,
-}: QuotationTableProps) {
+export const Table = memo(({ data, onResume }: QuotationTableProps) => {
   console.log("Table data:", data);
   return (
     <div className="overflow-x-auto rounded-xl border border-slate-200">
@@ -85,4 +83,4 @@ export function Table({
       </table>
     </div>
   );
-}
+});
