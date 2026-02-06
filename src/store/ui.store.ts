@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface UIState {
   isLoading: boolean;
@@ -6,8 +7,10 @@ interface UIState {
   hideLoader: () => void;
 }
 
-export const useUIStore = create<UIState>((set) => ({
-  isLoading: false,
-  showLoader: () => set({ isLoading: true }),
-  hideLoader: () => set({ isLoading: false }),
-}));
+export const useUIStore = create<UIState>()(
+  devtools((set) => ({
+    isLoading: false,
+    showLoader: () => set({ isLoading: true }, false, "ui/showLoader"),
+    hideLoader: () => set({ isLoading: false }, false, "ui/hideLoader"),
+  }), { name: "UI Store", enabled: import.meta.env.DEV }),
+);

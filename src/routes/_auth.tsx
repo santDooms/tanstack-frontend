@@ -5,11 +5,12 @@ import {
 } from "@tanstack/react-router";
 import { Header } from "../components/layouts/Header";
 import { Footer } from "../components/layouts/Footer";
+import { useAuthStore } from "../store";
 
 export const Route = createFileRoute("/_auth")({
   beforeLoad: () => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
+    const { isAuthenticated } = useAuthStore.getState();
+    if (!isAuthenticated) {
       throw redirect({
         to: "/login",
       });
