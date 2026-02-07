@@ -7,7 +7,7 @@ type Props = {
 
 export function DashboardTabs({ tab, onChange }: Props) {
   return (
-    <div className="flex gap-8 border-b">
+    <div className="flex gap-8">
       <Tab active={tab === "cotizacion"} onClick={() => onChange("cotizacion")}>
         Cotización
       </Tab>

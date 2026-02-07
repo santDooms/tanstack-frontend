@@ -19,7 +19,7 @@ export function Breadcrumb() {
       label: match.staticData.breadcrumb as string,
       to: match.pathname,
     }));
-  const lastMatch = matches[matchesLength - 1];
+  const lastMatch = matches[matchesLength - 2];
   const virtualParent = lastMatch.staticData?.breadcrumbParent;
 
   if (virtualParent) {

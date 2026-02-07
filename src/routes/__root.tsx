@@ -11,7 +11,7 @@ function RootLayout() {
  const isLoading = useUIStore((s) => s.isLoading)
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-gray-100">
       {isLoading && <Loader />}
       <Outlet />
     </div>

@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
-import { Route as AuthNewQuotationIndexRouteImport } from './routes/_auth/newQuotation/index'
+import { Route as AuthNewQuotationLayoutRouteRouteImport } from './routes/_auth/newQuotationLayout/route'
 import { Route as AuthDashboardIndexRouteImport } from './routes/_auth/dashboard/index'
+import { Route as AuthNewQuotationLayoutVehicleStepIndexRouteImport } from './routes/_auth/newQuotationLayout/vehicleStep/index'
+import { Route as AuthNewQuotationLayoutValidationStepIndexRouteImport } from './routes/_auth/newQuotationLayout/validationStep/index'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/_auth',
@@ -29,49 +31,82 @@ const LoginIndexRoute = LoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthNewQuotationIndexRoute = AuthNewQuotationIndexRouteImport.update({
-  id: '/newQuotation/',
-  path: '/newQuotation/',
-  getParentRoute: () => AuthRoute,
-} as any)
+const AuthNewQuotationLayoutRouteRoute =
+  AuthNewQuotationLayoutRouteRouteImport.update({
+    id: '/newQuotationLayout',
+    path: '/newQuotationLayout',
+    getParentRoute: () => AuthRoute,
+  } as any)
 const AuthDashboardIndexRoute = AuthDashboardIndexRouteImport.update({
   id: '/dashboard/',
   path: '/dashboard/',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthNewQuotationLayoutVehicleStepIndexRoute =
+  AuthNewQuotationLayoutVehicleStepIndexRouteImport.update({
+    id: '/vehicleStep/',
+    path: '/vehicleStep/',
+    getParentRoute: () => AuthNewQuotationLayoutRouteRoute,
+  } as any)
+const AuthNewQuotationLayoutValidationStepIndexRoute =
+  AuthNewQuotationLayoutValidationStepIndexRouteImport.update({
+    id: '/validationStep/',
+    path: '/validationStep/',
+    getParentRoute: () => AuthNewQuotationLayoutRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/newQuotationLayout': typeof AuthNewQuotationLayoutRouteRouteWithChildren
   '/login': typeof LoginIndexRoute
   '/dashboard': typeof AuthDashboardIndexRoute
-  '/newQuotation': typeof AuthNewQuotationIndexRoute
+  '/newQuotationLayout/validationStep': typeof AuthNewQuotationLayoutValidationStepIndexRoute
+  '/newQuotationLayout/vehicleStep': typeof AuthNewQuotationLayoutVehicleStepIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/newQuotationLayout': typeof AuthNewQuotationLayoutRouteRouteWithChildren
   '/login': typeof LoginIndexRoute
   '/dashboard': typeof AuthDashboardIndexRoute
-  '/newQuotation': typeof AuthNewQuotationIndexRoute
+  '/newQuotationLayout/validationStep': typeof AuthNewQuotationLayoutValidationStepIndexRoute
+  '/newQuotationLayout/vehicleStep': typeof AuthNewQuotationLayoutVehicleStepIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
+  '/_auth/newQuotationLayout': typeof AuthNewQuotationLayoutRouteRouteWithChildren
   '/login/': typeof LoginIndexRoute
   '/_auth/dashboard/': typeof AuthDashboardIndexRoute
-  '/_auth/newQuotation/': typeof AuthNewQuotationIndexRoute
+  '/_auth/newQuotationLayout/validationStep/': typeof AuthNewQuotationLayoutValidationStepIndexRoute
+  '/_auth/newQuotationLayout/vehicleStep/': typeof AuthNewQuotationLayoutVehicleStepIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard' | '/newQuotation'
+  fullPaths:
+    | '/'
+    | '/newQuotationLayout'
+    | '/login'
+    | '/dashboard'
+    | '/newQuotationLayout/validationStep'
+    | '/newQuotationLayout/vehicleStep'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard' | '/newQuotation'
+  to:
+    | '/'
+    | '/newQuotationLayout'
+    | '/login'
+    | '/dashboard'
+    | '/newQuotationLayout/validationStep'
+    | '/newQuotationLayout/vehicleStep'
   id:
     | '__root__'
     | '/'
     | '/_auth'
+    | '/_auth/newQuotationLayout'
     | '/login/'
     | '/_auth/dashboard/'
-    | '/_auth/newQuotation/'
+    | '/_auth/newQuotationLayout/validationStep/'
+    | '/_auth/newQuotationLayout/vehicleStep/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -103,11 +138,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth/newQuotation/': {
-      id: '/_auth/newQuotation/'
-      path: '/newQuotation'
-      fullPath: '/newQuotation'
-      preLoaderRoute: typeof AuthNewQuotationIndexRouteImport
+    '/_auth/newQuotationLayout': {
+      id: '/_auth/newQuotationLayout'
+      path: '/newQuotationLayout'
+      fullPath: '/newQuotationLayout'
+      preLoaderRoute: typeof AuthNewQuotationLayoutRouteRouteImport
       parentRoute: typeof AuthRoute
     }
     '/_auth/dashboard/': {
@@ -117,17 +152,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthDashboardIndexRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/newQuotationLayout/vehicleStep/': {
+      id: '/_auth/newQuotationLayout/vehicleStep/'
+      path: '/vehicleStep'
+      fullPath: '/newQuotationLayout/vehicleStep'
+      preLoaderRoute: typeof AuthNewQuotationLayoutVehicleStepIndexRouteImport
+      parentRoute: typeof AuthNewQuotationLayoutRouteRoute
+    }
+    '/_auth/newQuotationLayout/validationStep/': {
+      id: '/_auth/newQuotationLayout/validationStep/'
+      path: '/validationStep'
+      fullPath: '/newQuotationLayout/validationStep'
+      preLoaderRoute: typeof AuthNewQuotationLayoutValidationStepIndexRouteImport
+      parentRoute: typeof AuthNewQuotationLayoutRouteRoute
+    }
   }
 }
 
+interface AuthNewQuotationLayoutRouteRouteChildren {
+  AuthNewQuotationLayoutValidationStepIndexRoute: typeof AuthNewQuotationLayoutValidationStepIndexRoute
+  AuthNewQuotationLayoutVehicleStepIndexRoute: typeof AuthNewQuotationLayoutVehicleStepIndexRoute
+}
+
+const AuthNewQuotationLayoutRouteRouteChildren: AuthNewQuotationLayoutRouteRouteChildren =
+  {
+    AuthNewQuotationLayoutValidationStepIndexRoute:
+      AuthNewQuotationLayoutValidationStepIndexRoute,
+    AuthNewQuotationLayoutVehicleStepIndexRoute:
+      AuthNewQuotationLayoutVehicleStepIndexRoute,
+  }
+
+const AuthNewQuotationLayoutRouteRouteWithChildren =
+  AuthNewQuotationLayoutRouteRoute._addFileChildren(
+    AuthNewQuotationLayoutRouteRouteChildren,
+  )
+
 interface AuthRouteChildren {
+  AuthNewQuotationLayoutRouteRoute: typeof AuthNewQuotationLayoutRouteRouteWithChildren
   AuthDashboardIndexRoute: typeof AuthDashboardIndexRoute
-  AuthNewQuotationIndexRoute: typeof AuthNewQuotationIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
+  AuthNewQuotationLayoutRouteRoute:
+    AuthNewQuotationLayoutRouteRouteWithChildren,
   AuthDashboardIndexRoute: AuthDashboardIndexRoute,
-  AuthNewQuotationIndexRoute: AuthNewQuotationIndexRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)

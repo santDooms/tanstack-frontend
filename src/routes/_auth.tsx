@@ -25,7 +25,7 @@ function AuthLayout() {
     <>
       <Header />
       <main className="flex-1">
-        <div className="max-w-[1440px] mx-auto px-20 py-10">
+        <div className="max-w-[1440px] mx-auto">
           <Outlet />
         </div>
       </main>

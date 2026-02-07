@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { QuotationsTable } from "../components/layouts/DashboardComponents/QuotationsTable";
 import { Table } from "../components/ui";
-import { DashboardTabs } from "../components/layouts/DashboardComponents/DashboardTabs";
 import { DashboardHeader } from "../components/layouts/DashboardComponents/DashboardHeader";
 import { useNavigate, type NavigateOptions } from "@tanstack/react-router";
 import type { Quotation } from "../types/quotation";
@@ -34,7 +33,7 @@ export function Dashboard() {
   const TableComponent = tableToRender[tab];
 
   const handleNavigate = async () => {
-    await navigate({ to: "/newQuotation" } as NavigateOptions);
+    await navigate({ to: "/newQuotationLayout/validationStep" } as NavigateOptions);
   };
   return (
     <div className="space-y-6">
@@ -42,9 +41,12 @@ export function Dashboard() {
         title="Mis negocios en línea"
         actionLabel="Nueva cotización"
         onAction={handleNavigate}
+        setTab={setTab}
+        tab={tab}
       />
-      <DashboardTabs tab={tab} onChange={setTab} />
-      <TableComponent />
+      <div className="px-20">
+        <TableComponent />
+      </div>
     </div>
   );
 }
