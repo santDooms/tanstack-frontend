@@ -35,7 +35,7 @@ export function Breadcrumb() {
         return (
           <div key={item.to} className="flex items-center">
             {index !== 0 && (
-              <span className="mx-2">
+              <span className="mx-0.5">
                 <ChevronRightIcon />
               </span>
             )}
