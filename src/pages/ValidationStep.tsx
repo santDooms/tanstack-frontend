@@ -1,24 +1,41 @@
 import { useNavigate, type NavigateOptions } from "@tanstack/react-router";
-import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { Button, Input } from "../components/ui";
 import { Dropdown } from "../components/ui/DropDown";
-
-type ValidationFormValues = {
-  idType: string;
-  idNumber: string;
-  plateType: string;
-  plateNumber: string;
-};
+import { validationStepSchema, type ValidationStepFormValues } from "../schemas/validationStep.schema";
+import { selectIdTypes, selectPlateTypes } from "../utils/dropwDownOptions";
 
 export function ValidationStep() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ValidationStepFormValues>({
+    mode: "onChange",
+    resolver: zodResolver(validationStepSchema),
+    defaultValues: {
+      documentType: "cc",  
+    },
+  });
+  
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate({ to: "/dashboard" } as NavigateOptions);
   };
+  const handleFormSubmit = (data: ValidationStepFormValues) => {
+    console.log("Form data:", data);
+  };
+
   return (
     <div className="flex flex-col gap-14">
       <div className="flex justify-end">
-        <Button className=" w-full max-w-48 min-h-11" onClick={handleButtonClick}>Ir a mis negocios</Button>
+        <Button
+          className=" w-full max-w-48 min-h-11"
+          onClick={handleButtonClick}
+        >
+          Ir a mis negocios
+        </Button>
       </div>
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-3xl font-bold text-blue-600">Comencemos</h1>
@@ -33,42 +50,45 @@ export function ValidationStep() {
         <div className="w-full max-w-sm md:justify-self-end">
           <Dropdown
             label="Tipo de identificación *"
-            options={[
-              { label: "Cédula de ciudadanía", value: "cc" },
-              { label: "Cédula de extranjería", value: "ce" },
-              { label: "Pasaporte", value: "pasaporte" },
-            ]}
-            value=""
-            onChange={() => {}}
+            options={selectIdTypes}
+            error={errors.documentType?.message}
+            {...register("documentType")}
           />
         </div>
         <div className="max-w-sm">
           <Input
             label="Número de identificación *"
             placeholder="Número de identificación *"
-            value=""
-            onChange={() => {}}
+            error={errors.documentNumber?.message}
+            {...register("documentNumber")}
           />
         </div>
         <div className="w-full max-w-sm md:justify-self-end">
           <Dropdown
             label="Tipo de placa *"
-            options={[
-              { label: "Particular", value: "particular" },
-              { label: "Público", value: "publico" },
-              { label: "Diplomático", value: "diplomatico" },
-            ]}
-            value=""
-            onChange={() => {}}
+            options={selectPlateTypes}
+            error={errors.plateType?.message}
+            {...register("plateType")}
           />
         </div>
         <div className="max-w-sm">
-          <Input label="Número de placa *" placeholder="Número de placa *" value="" onChange={() => {}} />
+          <Input
+            label="Número de placa *"
+            placeholder="Número de placa *"
+            error={errors.plateNumber?.message}
+            {...register("plateNumber")}
+          />
         </div>
       </div>
 
       <div className="flex justify-center mb-10">
-        <Button className="w-full max-w-sm min-h-11">Continuar</Button>
+        <Button
+          className="w-full max-w-sm min-h-11"
+          onClick={handleSubmit(handleFormSubmit)}
+          disabled={!isValid}
+        >
+          Continuar
+        </Button>
       </div>
     </div>
   );

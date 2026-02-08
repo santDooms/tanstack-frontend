@@ -1,46 +1,41 @@
-import { useId } from "react";
+import { useId, type SelectHTMLAttributes } from "react";
 
 type Option = {
   label: string;
   value: string;
 };
 
-type SelectProps = {
+interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   options: Option[];
-  value: string;
-  onChange: (value: string) => void;
   error?: string;
-  disabled?: boolean;
-  className?: string;
-};
+}
 
 export function Dropdown({
   label,
   options,
-  value,
-  onChange,
   error,
   disabled,
   className = "",
+  ...props
 }: SelectProps) {
   const id = useId();
-  const hasValue = value !== "";
+  console.log("Dropdown value:", props.value);
+  const hasValue = props.value !== "";
   const hasError = !!error;
 
   return (
     <div className={`relative w-full ${className}`}>
       <select
         id={id}
-        value={value}
         disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
         className={`
           peer w-full appearance-none rounded-sm border bg-white px-3 pt-5 pb-2 text-sm
           focus:outline-none focus:ring-2 focus:ring-green-600
           ${hasError ? "border-red-500" : "border-gray-300"}
           ${disabled ? "bg-gray-100 cursor-not-allowed" : ""}
         `}
+        {...props}
       >
         <option value="" disabled hidden></option>
 
