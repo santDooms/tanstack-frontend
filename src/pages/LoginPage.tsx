@@ -34,11 +34,13 @@ export function LoginPage() {
         <Input
           label="Email"
           placeholder="Email"
+          autoComplete="email"
           {...register("email", { required: true })}
         />
         <Input
           label="Password"
           type="password"
+          autoComplete="current-password"
           placeholder="Password"
           error={errors.password?.message}
           {...register("password", {

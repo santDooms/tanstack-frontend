@@ -13,7 +13,9 @@ function RootLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       {isLoading && <Loader />}
-      <Outlet />
+      <main id="main-content" role="main" tabIndex={-1}>
+        <Outlet />
+      </main>
     </div>
   );
 }

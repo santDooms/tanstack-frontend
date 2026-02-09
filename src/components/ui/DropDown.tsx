@@ -35,7 +35,7 @@ export function Dropdown({
         `}
         {...props}
       >
-        <option value="" hidden></option>
+        <option value="" hidden>{label}</option>
 
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -66,7 +66,7 @@ export function Dropdown({
         </svg>
       </div>
 
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+      {error && <p className="absolute -bottom-4 left-0 mt-1 text-xs text-red-500">{error}</p>}
     </div>
   );
 }

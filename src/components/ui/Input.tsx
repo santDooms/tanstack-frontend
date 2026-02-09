@@ -16,8 +16,8 @@ export function Input({ label, error, className, ...props }: InputProps) {
         id={id}
         placeholder={resolvedPlaceholder}
         className={clsx(
-          "peer rounded-sm border h-[50px] px-2.5 pb-3 pt-3.5  text-sm transition focus:outline-none focus:ring-2 autofill:shadow-[inset_0_0_0px_1000px_white]",
-          error ? " border-red-500 focus:ring-0" : "border-gray-300 focus:ring-blue-500",
+          "peer rounded-sm border h-[50px] px-2.5 pb-3 pt-3.5  text-sm transition focus:outline-none  autofill:shadow-[inset_0_0_0px_1000px_white]",
+          error ? " border-red-500 focus:ring-0" : "border-gray-300 focus:ring-2 focus:ring-blue-500",
           className,
         )}
         {...props}
@@ -36,7 +36,7 @@ export function Input({ label, error, className, ...props }: InputProps) {
           {label}
         </label>
       )}
-      {error && <span className="text-xs text-red-600">{error}</span>}
+      {error && <span className="absolute -bottom-4 left-0 text-xs text-red-600">{error}</span>}
     </div>
   );
 }
