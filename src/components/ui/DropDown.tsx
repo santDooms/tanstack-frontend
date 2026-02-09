@@ -20,8 +20,6 @@ export function Dropdown({
   ...props
 }: SelectProps) {
   const id = useId();
-  console.log("Dropdown value:", props.value);
-  const hasValue = props.value !== "";
   const hasError = !!error;
 
   return (
@@ -31,13 +29,13 @@ export function Dropdown({
         disabled={disabled}
         className={`
           peer w-full appearance-none rounded-sm border bg-white px-3 pt-5 pb-2 text-sm
-          focus:outline-none focus:ring-2 focus:ring-green-600
+          focus:outline-none
           ${hasError ? "border-red-500" : "border-gray-300"}
           ${disabled ? "bg-gray-100 cursor-not-allowed" : ""}
         `}
         {...props}
       >
-        <option value="" disabled hidden></option>
+        <option value="" hidden></option>
 
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -49,12 +47,10 @@ export function Dropdown({
       <label
         htmlFor={id}
         className={`
-          absolute left-3 bg-white px-1 transition-all duration-200
-          ${
-            hasValue
-              ? "top-1 text-xs text-gray-600"
-              : "top-3 text-sm text-gray-400 peer-focus:top-1 peer-focus:text-xs peer-focus:text-green-600"
-          }
+          absolute left-2 bg-white px-1 transition-all duration-200
+          top-3 text-sm text-gray-400
+          peer-focus:top-1 peer-focus:text-xs
+          peer-valid:top-1 peer-valid:text-xs peer-valid:text-gray-600
         `}
       >
         {label}

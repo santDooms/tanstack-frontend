@@ -15,7 +15,8 @@ export function ValidationStep() {
     mode: "onChange",
     resolver: zodResolver(validationStepSchema),
     defaultValues: {
-      documentType: "cc",  
+      documentType: "cc", 
+      plateType: "particular", 
     },
   });
   
