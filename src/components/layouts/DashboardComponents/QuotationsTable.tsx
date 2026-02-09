@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuotations } from "../../../hooks/useQuotations";
+import { useListQuotations } from "../../../hooks/useQuotations";
 import { useAuthStore } from "../../../store";
 import { Loader, Table } from "../../ui";
 import { Pagination } from "../../ui/Pagination";
@@ -10,7 +10,7 @@ export function QuotationsTable() {
   const [pageSize, setPageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const user = useAuthStore((s) => s.user);
-  const { data, isLoading } = useQuotations(user!.brokerKey, 50);
+  const { data, isLoading } = useListQuotations(user!.brokerKey, 50);
   const tableItems = data?.items || [];
 
   const totalPages = Math.ceil(tableItems.length / pageSize);

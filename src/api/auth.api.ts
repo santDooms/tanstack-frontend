@@ -1,30 +1,8 @@
-import type { User } from "../store/auth.store";
+import api from "../lib/axios";
+import type { LoginPayload, LoginResponse } from "../types/api";
 
-
-type LoginResponse = {
-  token: string;
-  user: User;
-};
-
-type LoginPayload = {
-  email: string;
-  password: string;
-};
-
-const API_URL = import.meta.env.VITE_API_URL;
-
-export const loginRequest = async (
-  payload: LoginPayload
-): Promise<LoginResponse> => {
-  const res = await fetch(`${API_URL}auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) {
-    throw new Error("Invalid credentials");
-  }
-
-  return res.json();
+export const loginRequest = (payload: LoginPayload): Promise<LoginResponse> => {
+  return api
+    .post<LoginResponse>("/auth/login", payload)
+    .then((response) => response.data);
 };

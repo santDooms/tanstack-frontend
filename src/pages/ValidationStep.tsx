@@ -1,10 +1,16 @@
-import { useNavigate, type NavigateOptions } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "../components/ui";
 import { Dropdown } from "../components/ui/DropDown";
-import { validationStepSchema, type ValidationStepFormValues } from "../schemas/validationStep.schema";
+import {
+  validationStepSchema,
+  type ValidationStepFormValues,
+} from "../schemas/validationStep.schema";
 import { selectIdTypes, selectPlateTypes } from "../utils/dropwDownOptions";
+import { useCreateQuotation } from "../hooks/useQuotations";
+import { useAuthStore } from "../store";
+import { parseCreateQuoteRequest } from "../utils/parsers";
 
 export function ValidationStep() {
   const {
@@ -15,17 +21,24 @@ export function ValidationStep() {
     mode: "onChange",
     resolver: zodResolver(validationStepSchema),
     defaultValues: {
-      documentType: "cc", 
-      plateType: "particular", 
+      documentType: "cc",
+      plateType: "particular",
     },
   });
-  
+  const user = useAuthStore((s) => s.user);
+  const createQuotation = useCreateQuotation();
   const navigate = useNavigate();
+
   const handleButtonClick = () => {
-    navigate({ to: "/dashboard" } as NavigateOptions);
+    navigate({ to: "/dashboard" });
   };
-  const handleFormSubmit = (data: ValidationStepFormValues) => {
-    console.log("Form data:", data);
+  const handleFormSubmit = async (data: ValidationStepFormValues) => {
+    if (!user) {
+      navigate({ to: "/login" });
+      return;
+    }
+    await createQuotation.mutateAsync(parseCreateQuoteRequest(data, user.brokerKey));
+    navigate({ to: "/newQuotationLayout/vehicleStep" });
   };
 
   return (

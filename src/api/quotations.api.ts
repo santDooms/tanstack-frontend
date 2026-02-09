@@ -1,4 +1,8 @@
 import api from "../lib/axios";
+import type {
+  CreateQuotationPayload,
+  CreateQuotationResponse,
+} from "../types/api";
 import type { Quotation } from "../types/quotation";
 
 export type ListPayload = {
@@ -13,4 +17,14 @@ export type QuotationsResponse = {
 };
 
 export const listQuotations = (payload: ListPayload) =>
-  api.post<QuotationsResponse>("/list_quotations", payload).then((res) => res.data);
+  api
+    .post<QuotationsResponse>("/list_quotations", payload)
+    .then((res) => res.data);
+
+export const createQuotationRequest = (
+  payload: CreateQuotationPayload,
+): Promise<CreateQuotationResponse> => {
+  return api
+    .post<CreateQuotationResponse>("/new_quotation", payload)
+    .then((response) => response.data);
+};
