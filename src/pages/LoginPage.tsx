@@ -11,12 +11,10 @@ type FormValues = {
 export function LoginPage() {
   const {
     register,
-    watch,
     formState: { isValid , errors },
     handleSubmit,
   } = useForm<FormValues>({ mode: "onChange" });
 
-  const { email, password } = watch();
   const login = useLogin();
   const navigate = useNavigate();
 
@@ -36,14 +34,12 @@ export function LoginPage() {
         <Input
           label="Email"
           placeholder="Email"
-          hasValue={!!email}
           {...register("email", { required: true })}
         />
         <Input
           label="Password"
           type="password"
           placeholder="Password"
-          hasValue={!!password}
           error={errors.password?.message}
           {...register("password", {
             required: "Password is required",

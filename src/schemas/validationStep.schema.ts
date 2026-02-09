@@ -16,7 +16,6 @@ export const validationStepSchema = z
   .superRefine((data, ctx) => {
     const { documentType, documentNumber } = data;
     console.log("Validating documentType:", documentType);
-    console.log("Validating documentNumber:", documentNumber);
     if (documentType === "cc" || documentType === "ce") {
       if (!/^\d+$/.test(documentNumber)) {
         ctx.addIssue({
