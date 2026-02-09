@@ -4,10 +4,9 @@ import clsx from "clsx";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
-  hasValue?: boolean;
 }
 
-export function Input({ label, error, hasValue, className, ...props }: InputProps) {
+export function Input({ label, error, className, ...props }: InputProps) {
   const id = useId();
   const resolvedPlaceholder = props.placeholder ?? " ";
 
