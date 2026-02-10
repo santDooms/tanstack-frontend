@@ -11,7 +11,8 @@ export const validationStepSchema = z
     plateNumber: z
       .string()
       .min(6, "Plate number must be at least 6 characters")
-      .max(7, "Plate number must be at most 7 characters"),
+      .max(7, "Plate number must be at most 7 characters")
+      .regex(/^[A-Za-z0-9-]+$/, "Plate must contain only letters, numbers and '-'"),
   })
   .superRefine((data, ctx) => {
     const { documentType, documentNumber } = data;

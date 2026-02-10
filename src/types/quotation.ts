@@ -38,6 +38,7 @@ export interface QuotationState {
   personalData: PersonalData;
   vehicleData: VehicleData;
   setQuotation: (quotation: initialQuotationState) => void;
+  resetQuotation: () => void;
 }
 
-export type initialQuotationState = Omit<QuotationState, "setQuotation">;
+export type initialQuotationState = Omit<QuotationState, "setQuotation" | "resetQuotation">;

@@ -16,6 +16,7 @@ export function ValidationStep() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = useForm<ValidationStepFormValues>({
     mode: "onChange",
@@ -90,7 +91,12 @@ export function ValidationStep() {
             label="Número de placa *"
             placeholder="Número de placa *"
             error={errors.plateNumber?.message}
-            {...register("plateNumber")}
+            {...register("plateNumber", {
+              onChange: (e) => {
+                const customVal = (e.target as HTMLInputElement).value.toUpperCase();
+                setValue("plateNumber", customVal, { shouldValidate: true, shouldDirty: true });
+              },
+            })}
           />
         </div>
       </div>

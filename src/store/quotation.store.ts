@@ -28,6 +28,7 @@ export const useQuotationStore = create<QuotationState>()(
         ...intialState,
         setQuotation: (quotation: initialQuotationState) =>
           set({ ...quotation }, false, "createQuotation/setQuotation"),
+        resetQuotation: () => set(intialState, false, "resetQuotation"),
       }),
       {
         name: "quotation-storage",

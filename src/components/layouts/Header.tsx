@@ -2,18 +2,20 @@ import { Button } from "../ui";
 import HeaderLogo from "../../assets/app_logo.svg";
 import ProfileLogo from "../../assets/profile.jpg";
 import ArrowDown from "../../assets/arrowDown.svg";
-import { useAuthStore } from "../../store";
+import { useAuthStore, useQuotationStore } from "../../store";
 import { useNavigate, type NavigateOptions } from "@tanstack/react-router";
 
 
 export function Header() {
   const navigate = useNavigate();
   const { logout, user } = useAuthStore((s) => s);
+  const { resetQuotation } = useQuotationStore((s) => s);
   
   const handleLogout = async () => {
-   await navigate({ to: "/login" } as NavigateOptions);
-   logout();
-  }
+    await navigate({ to: "/login" } as NavigateOptions);
+    logout();
+    resetQuotation();
+  };
 
   return (
     <header className="w-full border-b bg-white">
