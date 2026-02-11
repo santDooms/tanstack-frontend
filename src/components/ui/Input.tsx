@@ -17,7 +17,8 @@ export function Input({ label, error, className, ...props }: InputProps) {
         placeholder={resolvedPlaceholder}
         className={clsx(
           "peer rounded-sm border h-[50px] px-2.5 pb-3 pt-3.5  text-sm transition focus:outline-none  autofill:shadow-[inset_0_0_0px_1000px_white]",
-          error ? " border-red-500 focus:ring-0" : "border-gray-300 focus:ring-2 focus:ring-blue-500",
+          error ? " border-red-500 focus:ring-0" : "border-[#919191] focus:ring-2 focus:ring-blue-500",
+          "disabled:bg-[#e6e6e6]  disabled:text-gray-500 disabled:cursor-not-allowed disabled:focus:ring-0",
           className,
         )}
         {...props}

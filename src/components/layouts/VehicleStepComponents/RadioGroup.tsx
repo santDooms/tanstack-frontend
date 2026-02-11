@@ -33,7 +33,7 @@ export function RadioGroup({
               type="radio"
               name={name}
               value={opt.value}
-              className="h-4 w-4 accent-blue-600"
+              className="h-4 w-4 accent-gray-600"
               {...inputProps}
             />
             <span className="text-sm text-gray-700">{opt.label}</span>

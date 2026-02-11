@@ -3,27 +3,15 @@ import { QuotationInfoCard } from "../components/layouts/VehicleStepComponents/Q
 import { VehicleForm } from "../components/layouts/VehicleStepComponents/VehicleForm";
 import { Button, CheckboxField, Dropdown } from "../components/ui";
 import { vehicleUses } from "../utils/dropwDownOptions";
-
-export type VehicleFormValues = { //zod will maybe have this type
-  vehicleUse: string;
-  acceptCheck: boolean;
-  vehicleCode: string;
-  brand: string;
-  model: string;
-  version: string;
-  type: string;
-  brandCode: string;
-  commercialValue: string;
-  isNew: "yes" | "no";
-  hasAccessories: "yes" | "no";
-  hasGps: "yes" | "no";
-};
+import { vehicleStepSchema, type VehicleStepFormValues } from "../schemas/vehicleStep.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function VehicleStep() {
-  const methods = useForm<VehicleFormValues>({
-    mode: "onChange"
+  const methods = useForm<VehicleStepFormValues>({
+    mode: "onChange",
+    resolver: zodResolver(vehicleStepSchema)
   });
-  const onSubmitForm = (data: VehicleFormValues) => { // check this submit, dont want the user to missuse the app when pressing enter.
+  const onSubmitForm = (data: VehicleStepFormValues) => { // check this submit, dont want the user to missuse the app when pressing enter.
     console.log(data);
   };
   return (

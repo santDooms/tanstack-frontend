@@ -1,10 +1,11 @@
 import { useFormContext } from "react-hook-form";
 import { Input } from "../../ui";
 import { RadioGroup } from "./RadioGroup";
-import { type VehicleFormValues } from "../../../pages/VehicleStep";
+import type { VehicleStepFormValues } from "../../../schemas/vehicleStep.schema";
+
 
 export function VehicleForm() {
-  const { register } = useFormContext<VehicleFormValues>();
+  const { register, formState : { errors } } = useFormContext<VehicleStepFormValues>();
   return (
     <section>
       <div className="text-center bg-gray-100 py-14">
@@ -15,7 +16,7 @@ export function VehicleForm() {
           <Input
             label="Código del vehículo *"
             placeholder="Código del vehículo *"
-            disabled={true}
+            error={errors.vehicleCode?.message}
             {...register("vehicleCode")}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
@@ -52,8 +53,8 @@ export function VehicleForm() {
             <Input
               label="Valor comercial *"
               placeholder="Valor comercial *"
-              disabled={true}
               {...register("commercialValue")}
+              error={errors.commercialValue?.message}
             />
           </div>
         </div>
