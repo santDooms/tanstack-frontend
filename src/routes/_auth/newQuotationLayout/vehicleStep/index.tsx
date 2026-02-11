@@ -1,9 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { VehicleStep } from '../../../../pages/VehicleStep'
 
 export const Route = createFileRoute('/_auth/newQuotationLayout/vehicleStep/')({
-  component: RouteComponent,
+  component: VehicleStep,
 })
-
-function RouteComponent() {
-  return <div>Hello here will be a form to initiate a new vehicle quote</div>
-}
